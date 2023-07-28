@@ -67,12 +67,12 @@ export default function Header() {
           </div>
           {/* Liked Items End */}
           {/* Cart Icon start */}
-          <div className="relative hover:bg-black/[0.05] h-8 w-8 md:w-12 md:h-12 flex items-center justify-center rounded-full cursor-pointer">
+          <Link href={"/cart"} className="relative hover:bg-black/[0.05] h-8 w-8 md:w-12 md:h-12 flex items-center justify-center rounded-full cursor-pointer">
             <BsCart className="text-[16px] md:text-[20px]" />
             <span className="text-[8px] md:text-[10px] px-[4px] py-[4px] min-w-[20px] text-center leading-tight text-white bg-red-600 rounded-full absolute top-0 left-4 md:left-6">
               5
             </span>
-          </div>
+          </Link>
           {/* Cart Icon End */}
           {/* Menu Open/Close Button start and End */}
           {mobileMenu ? (

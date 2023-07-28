@@ -2,6 +2,7 @@ import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import {BiArrowBack } from "react-icons/bi";
+
 export default function HeroBanner() {
   return (
     <div className="w-full max-w-[1280px] mx-auto text-white relative">
