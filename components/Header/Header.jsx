@@ -7,12 +7,14 @@ import { BsCart } from "react-icons/bs";
 import { BiMenuAltRight } from "react-icons/bi";
 import { VscChromeClose } from "react-icons/vsc";
 import MobileMenu from "./MobileMenu";
+import { getCategoriesData } from "@/utils/api";
 
 export default function Header() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [showCatMenu, setShowCatMenu] = useState(false);
   const [show, setShow] = useState("translate-y-0");
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [categories, setCategories] = useState(null);
 
   const controlNavbar = () => {
     if (window.scrollY > 200) {
@@ -34,6 +36,14 @@ export default function Header() {
     };
   }, [lastScrollY]);
 
+  const fetchCategoriesData = async () => {
+    const cateData = await getCategoriesData();
+    setCategories(cateData.data);
+  };
+  useEffect(() => {
+    fetchCategoriesData();
+  }, []);
+
   return (
     <header
       className={`w-full h-[50px] md:h-[80px] bg-white flex items-center justify-between z-20 sticky top-0 transition-transform duration-300 ${show}`}
@@ -47,10 +57,15 @@ export default function Header() {
           />
         </Link>
 
-        <Menu showCatMenu={showCatMenu} setShowCatMenu={setShowCatMenu} />
+        <Menu
+          categories={categories}
+          showCatMenu={showCatMenu}
+          setShowCatMenu={setShowCatMenu}
+        />
 
         {mobileMenu && (
           <MobileMenu
+            categories={categories}
             showCatMenu={showCatMenu}
             setShowCatMenu={setShowCatMenu}
             setMobileMenu={setMobileMenu}
@@ -67,7 +82,10 @@ export default function Header() {
           </div>
           {/* Liked Items End */}
           {/* Cart Icon start */}
-          <Link href={"/cart"} className="relative hover:bg-black/[0.05] h-8 w-8 md:w-12 md:h-12 flex items-center justify-center rounded-full cursor-pointer">
+          <Link
+            href={"/cart"}
+            className="relative hover:bg-black/[0.05] h-8 w-8 md:w-12 md:h-12 flex items-center justify-center rounded-full cursor-pointer"
+          >
             <BsCart className="text-[16px] md:text-[20px]" />
             <span className="text-[8px] md:text-[10px] px-[4px] py-[4px] min-w-[20px] text-center leading-tight text-white bg-red-600 rounded-full absolute top-0 left-4 md:left-6">
               5

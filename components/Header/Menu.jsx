@@ -15,7 +15,7 @@ const subMenuData = [
   { id: 3, name: "Running shoes", doc_count: 64 },
   { id: 4, name: "Football shoes", doc_count: 107 },
 ];
-export default function Menu({ showCatMenu, setShowCatMenu }) {
+export default function Menu({ showCatMenu, setShowCatMenu, categories }) {
   return (
     <ul className={`hidden md:flex items-center gap-8 font-medium text-black`}>
       {data.map((item) => {
@@ -32,15 +32,15 @@ export default function Menu({ showCatMenu, setShowCatMenu }) {
 
                 {showCatMenu && (
                   <ul className="absolute bg-white top-6 left-0 min-w-[250px] text-black shadow-lg px-1 py-1">
-                    {subMenuData.map((subCate) => {
+                    {categories.map((subCate) => {
                       return (
                         <Link
                           className="flex justify-between items-center px-2 py-2 hover:bg-black/[0.03] rounded-md"
                           key={subCate.id}
-                          href={`/category/${subCate.name}`}
+                          href={`/category/${subCate?.attributes.category_name}`}
                         >
-                          <li>{subCate.name}</li>
-                          <span className="opacity-40 text-sm">{`(75)`}</span>
+                          <li>{subCate?.attributes.category_name}</li>
+                          <span className="opacity-40 text-sm">{`(${subCate?.attributes.products.data.length})`}</span>
                         </Link>
                       );
                     })}

@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductCard from "../ProductCard/ProductCard";
+import { fetchProductsOfCategory } from "@/utils/api";
 
-export default function RelatedProducts() {
+export default function RelatedProducts({category_name}) {
+
+  const [data, setData] = useState(null)
+
+
+  const fetchCategoryData = async (category_name) =>{
+    const response = await fetchProductsOfCategory(category_name)
+    setData(response.data.data)
+  }
+  useEffect(()=>{
+    fetchCategoryData(category_name)
+  },[])
+  console.log(data)
   const responsive = {
 
     desktop: {
@@ -20,16 +33,13 @@ export default function RelatedProducts() {
     },
   };
   return (
-    <div className="mb-10 md:mt-20">
+    data&&<div className="mb-10 md:mt-20">
       <h2 className="mb-10 font-bold text-xl md:text-2xl">You Might Also Like</h2>
       <Carousel responsive={responsive} containerClass="-mx-[10px]" itemClass="px-[10px]">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-      </Carousel>
+
+        {data.attributes.products.data.map(item=><ProductCard key={item.id} item={item} />)}
+        
+        </Carousel>
     </div>
   );
 }

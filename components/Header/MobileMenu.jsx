@@ -19,6 +19,7 @@ export default function MobileMenu({
   showCatMenu,
   setShowCatMenu,
   setMobileMenu,
+  categories
 }) {
   return (
     <ul
@@ -39,7 +40,7 @@ export default function MobileMenu({
 
                 {showCatMenu && (
                   <ul className="relative">
-                    {subMenuData.map((subCate) => {
+                    {categories.map((subCate) => {
                       return (
                         <Link
                           onClick={() => {
@@ -48,10 +49,10 @@ export default function MobileMenu({
                           }}
                           className="flex justify-between items-center px-5 py-3 bg-black/[0.03] border-b rounded-md"
                           key={subCate.id}
-                          href={`/category/${subCate.name}`}
+                          href={`/category/${subCate?.attributes.category_name}`}
                         >
-                          <li>{subCate.name}</li>
-                          <span className="opacity-40 text-sm">{`(75)`}</span>
+                          <li>{subCate?.attributes.category_name}</li>
+                          <span className="opacity-40 text-sm">{`(${subCate?.attributes.products.data.length})`}</span>
                         </Link>
                       );
                     })}

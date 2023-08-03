@@ -1,7 +1,8 @@
 import React from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-export default function CaroselForProductDetails() {
+import { API_URL } from "@/utils/urls";
+export default function CaroselForProductDetails({ product }) {
   return (
     <div className="w-full max-w-[1280px] mx-auto sticky top-[50px]">
       <Carousel
@@ -11,13 +12,9 @@ export default function CaroselForProductDetails() {
         thumbWidth={"60px"}
         className="productCarousel"
       >
-        <img src="/p1.png" alt="" />
-        <img src="/p2.png" alt="" />
-        <img src="/p3.png" alt="" />
-        <img src="/p4.png" alt="" />
-        <img src="/p5.png" alt="" />
-        <img src="/p6.png" alt="" />
-        <img src="/p7.png" alt="" />
+        {product.image.data.map((item) => (
+          <img key={item.id} src={`${API_URL}${item?.attributes.url}`} alt="" />
+        ))}
       </Carousel>
     </div>
   );

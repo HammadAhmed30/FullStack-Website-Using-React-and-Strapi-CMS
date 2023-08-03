@@ -1,12 +1,14 @@
 import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
 
-export default function ProductDetails() {
+export default function ProductDetails({ product }) {
   return (
     <div className="w-full flex flex-col mt-10 md:mt-5">
-      <h1 className="font-bold text-2xl md:text-4xl">Jordan Retro 6 G</h1>
+      <h1 className="font-bold text-2xl md:text-4xl">{product.name}</h1>
       <h3 className="font-bold text-lg md:text-xl">Men's Golf Shoes</h3>
-      <p className="mt-7 font-bold text-lg md:text-xl">MRP : $ 130</p>
+      <p className="mt-7 font-bold text-lg md:text-xl">
+        MRP : $ {product.price}
+      </p>
       <p className="text-[14px] md:text-[16px] text-black/[0.34] font-semibold tracking-normal">
         incl. of taxes
       </p>
@@ -64,17 +66,7 @@ export default function ProductDetails() {
         </button>
         <h2 className="text-lg md:text-xl font-black mt-8">Product Details</h2>
         <p className="my-6 text-[16px] mb-10 md:mb-0 font-medium">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit totam
-          iure cum odit qui exercitationem corporis error! Esse quaerat autem
-          dolores voluptatem possimus beatae. Eligendi similique eum facilis,
-          molestiae sed quaerat quas ea impedit nobis earum nesciunt? Soluta
-          modi placeat error iusto id dolores quia, cupiditate eum illum
-          perferendis vel ipsum! Mollitia ea odit nam quae quisquam eligendi.
-          Error eveniet inventore, perspiciatis aliquid esse veniam incidunt
-          iure aut doloribus porro dolorem dolores qui reprehenderit odio ut
-          natus deserunt non cupiditate. Quisquam, maxime, unde quia aliquam
-          quaerat, recusandae perferendis dicta assumenda eius odio harum eum
-          amet reprehenderit velit culpa maiores dolorum.
+          {product.description}
         </p>
       </div>
     </div>
