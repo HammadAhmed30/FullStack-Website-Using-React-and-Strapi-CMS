@@ -2,10 +2,7 @@ import HeroBanner from "@/components/HomePage/HeroBanner";
 import ProductCard from "@/components/ProductCard/ProductCard";
 import Wrapper from "@/components/Universal Components/Wrapper";
 import { fetchAllProducts } from "@/utils/api";
-
-
 export default function Home({products}) {
-
 
   return (
     <main>

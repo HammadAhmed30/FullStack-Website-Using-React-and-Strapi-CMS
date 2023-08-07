@@ -1,14 +1,41 @@
 import React from "react";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { addToCart } from "@/Redux Store/cartSlice";
+import { useDispatch } from "react-redux";
 
-export default function ProductDetails({ product }) {
+export default function ProductDetails({ product, item, notify }) {
+  const dispatch = useDispatch();
+  const handleAddToCart = (i) => {
+    dispatch(addToCart(i));
+  };
+
   return (
     <div className="w-full flex flex-col mt-10 md:mt-5">
       <h1 className="font-bold text-2xl md:text-4xl">{product.name}</h1>
       <h3 className="font-bold text-lg md:text-xl">Men's Golf Shoes</h3>
-      <p className="mt-7 font-bold text-lg md:text-xl">
-        MRP : $ {product.price}
-      </p>
+      {product?.discount > 0 ? (
+        <p className="mt-7 font-bold text-lg md:text-xl">
+          MRP : $
+          {product?.price - (product?.price * product?.discount) / 100 ||
+            "0.00"}
+        </p>
+      ) : (
+        <p className="mt-7 font-bold text-lg md:text-xl">
+          MRP : $ {product.price}
+        </p>
+      )}
+      <div className="flex justify-between my-5">
+        {product?.discount > 0 && (
+          <p className="text-sm md:text-[17px] font-semibold text-black/[0.5] line-through">
+            $ {product?.price}
+          </p>
+        )}
+        {product?.discount > 0 && (
+          <p className="text-sm md:text-[17px] font-semibold text-green-500 ml-auto">
+            {product?.discount}% off
+          </p>
+        )}
+      </div>
       <p className="text-[14px] md:text-[16px] text-black/[0.34] font-semibold tracking-normal">
         incl. of taxes
       </p>
@@ -57,7 +84,23 @@ export default function ProductDetails({ product }) {
         <p className="text-sm text-red-700 font-semibold mt-2 mb-10">
           Size selection is required
         </p>
-        <button className="w-full bg-black text-white py-3 md:py-4 rounded-full">
+        <button
+          className="w-full bg-black text-white py-3 md:py-4 rounded-full"
+          onClick={() => {
+            handleAddToCart({
+              ...item,
+              originalPrice:
+                product.discount > 0
+                  ? product?.price - (product?.price * product?.discount) / 100
+                  : product.price,
+              price:
+                product.discount > 0
+                  ? product?.price - (product?.price * product?.discount) / 100
+                  : product.price,
+            });
+            notify();
+          }}
+        >
           Add to Cart
         </button>
         <button className="w-full bg-white text-black border-2 border-black flex justify-center items-center py-[8px] md:py-[12px] rounded-full mt-2 text-lg font-semibold">

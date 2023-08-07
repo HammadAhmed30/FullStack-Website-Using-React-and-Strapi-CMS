@@ -13,7 +13,7 @@ export default function ProductCard({ item }) {
           className="w-full h-full object-cover hover:scale-[1.01] transition-all"
           src={`${API_URL}${
             item?.attributes?.image?.data[0]?.attributes?.url
-          }` || "/product-1.webp"}
+          }`}
           alt=""
         />
       </div>
